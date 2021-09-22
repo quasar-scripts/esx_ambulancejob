@@ -2,6 +2,7 @@
 
 ESX Ambulance Job is an plugin for ESX with features:
 
+- This system comes completely modified for Quasar Inventory.
 - Adds death screen, with early respawn timer and bleed out timer
 - Vehicle garages, revive menu and more for on duty EMS
 
@@ -15,7 +16,6 @@ TriggerEvent('qs-core:getSharedObject', function(library) QS = library end)
 ```
 
 REPLACE
-esx_ambulancejob/server/main.lua
 esx_ambulancejob:removeItemsAfterRPDeath
 ```
 ESX.RegisterServerCallback('esx_ambulancejob:removeItemsAfterRPDeath', function(source, cb)
@@ -35,23 +35,6 @@ end)
 
 * Player management (boss actions)
    - [esx_society](https://github.com/ESX-Org/esx_society)
-
-## Download & Installation
-
-### Using [fvm](https://github.com/qlaffont/fvm-installer)
-```
-fvm install --save --folder=esx esx-org/esx_ambulancejob
-```
-
-### Using Git
-```
-cd resources
-git clone https://github.com/ESX-Org/esx_ambulancejob [esx]/esx_ambulancejob
-```
-
-### Manually
-- Download https://github.com/ESX-Org/esx_ambulancejob/archive/master.zip
-- Put it in the `[esx]` directory
 
 ## Installation
 - Import `esx_ambulancejob.sql` in your database
