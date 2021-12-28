@@ -84,11 +84,28 @@ AddEventHandler('esx_ambulancejob:putInVehicle', function(target)
 end)
 
 ESX.RegisterServerCallback('esx_ambulancejob:removeItemsAfterRPDeath', function(source, cb)
-	local xPlayer = QS.GetPlayerFromId(source)
-	local xPlayerx = ESX.GetPlayerFromId(source)
-	xPlayer.ClearInventory()
-	MySQL.Sync.execute("UPDATE `users` SET `inventory` = '"..QS.EscapeSqli(json.encode({})).."' WHERE `identifier` = '"..xPlayerx.identifier.."'")
-	cb()
+    local xPlayer = ESX.GetPlayerFromId(source)
+	local qPlayer = QS.GetPlayerFromId(source)
+
+    if Config.RemoveCashAfterRPDeath then
+        if xPlayer.getMoney() > 0 then
+            xPlayer.removeMoney(xPlayer.getMoney())
+        end
+
+        if xPlayer.getAccount('black_money').money > 0 then
+            xPlayer.removeAccountMoney('black_money', xPlayer.getAccount('black_money').money)
+        end
+    end
+    
+    if Config.RemoveItemsAfterRPDeath then 
+        qPlayer.ClearInventoryItems()
+    end
+
+    if Config.RemoveWeaponsAfterRPDeath then 
+        qPlayer.ClearInventoryWeapons()
+    end
+
+    cb()
 end)
 
 if Config.EarlyRespawnFine then
